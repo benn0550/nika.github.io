@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>💖 Be My Valentine 💖</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #FFB6C1 0%, #FFC0CB 50%, #FFD1DC 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Arial', sans-serif;
+            overflow-x: hidden;
+        }
+
+        .container {
+            text-align: center;
+            padding: 20px;
+            max-width: 600px;
+            width: 100%;
+        }
+
+        h1 {
+            color: #FF1493;
+            font-size: 3em;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px rgba(255, 20, 147, 0.3);
+            animation: bounce 2s ease-in-out infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        .cat-container {
+            margin: 30px 0;
+            position: relative;
+            height: 250px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .cat-image {
+            width: 280px;
+            height: auto;
+            animation: catBounce 2s ease-in-out infinite;
+            transition: opacity 0.5s ease;
+        }
+
+        .cat-image.hidden {
+            opacity: 0;
+            position: absolute;
+        }
+
+        @keyframes catBounce {
+            0%, 100% {
+                transform: translateY(0) scale(1);
+            }
+            50% {
+                transform: translateY(-15px) scale(1.02);
+            }
+        }
+
+        .hearts {
+            position: absolute;
+            font-size: 30px;
+            animation: float 6s ease-in-out infinite;
+            opacity: 0.6;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-30px) rotate(10deg);
+            }
+        }
+
+        .heart1 { left: 10%; top: 20%; animation-delay: 0s; }
+        .heart2 { right: 10%; top: 30%; animation-delay: 1s; }
+        .heart3 { left: 15%; bottom: 20%; animation-delay: 2s; }
+        .heart4 { right: 15%; bottom: 30%; animation-delay: 3s; }
+
+        .button-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 40px 0;
+            flex-wrap: wrap;
+        }
+
+        button {
+            border: none;
+            border-radius: 50px;
+            font-size: 1.5em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        #yesBtn {
+            background: linear-gradient(135deg, #90EE90, #32CD32);
+            color: white;
+            padding: 25px 60px;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        #yesBtn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(50, 205, 50, 0.4);
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+
+        #noBtn {
+            background: linear-gradient(135deg, #FF6B6B, #DC143C);
+            color: white;
+            padding: 15px 30px;
+            font-size: 1em;
+        }
+
+        #noBtn:hover {
+            background: linear-gradient(135deg, #FF8080, #FF4500);
+        }
+
+        .message {
+            color: #FF1493;
+            font-size: 1.3em;
+            margin-top: 20px;
+            font-style: italic;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            min-height: 30px;
+        }
+
+        .message.show {
+            opacity: 1;
+        }
+
+        .success-message {
+            display: none;
+            font-size: 2.5em;
+            color: #FF1493;
+            margin-top: 30px;
+            animation: celebrate 1s ease-in-out;
+        }
+
+        @keyframes celebrate {
+            0% {
+                transform: scale(0);
+                opacity: 0;
+            }
+            50% {
+                transform: scale(1.2);
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .success-message.show {
+            display: block;
+        }
+
+        /* Envelope Section */
+        .envelope-section {
+            display: none;
+            margin-top: 40px;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        .envelope-section.show {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .envelope-button {
+            background: linear-gradient(135deg, #FF69B4, #FF1493);
+            color: white;
+            padding: 20px 50px;
+            font-size: 1.5em;
+            font-weight: bold;
+            border: none;
+            border-radius: 15px;
+            cursor: pointer;
+            box-shadow: 0 8px 20px rgba(255, 20, 147, 0.4);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .envelope-button:before {
+            content: '💌';
+            font-size: 1.5em;
+            margin-right: 10px;
+        }
+
+        .envelope-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(255, 20, 147, 0.6);
+        }
+
+        /* Love Letter Section */
+        .love-letter {
+            display: none;
+            background: linear-gradient(135deg, rgba(255, 182, 193, 0.3), rgba(255, 192, 203, 0.3));
+            border-radius: 20px;
+            padding: 40px;
+            margin-top: 30px;
+            box-shadow: 0 10px 40px rgba(255, 105, 180, 0.3);
+            border: 2px solid rgba(255, 105, 180, 0.5);
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        .love-letter.show {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .letter-content {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .photo-box {
+            width: 200px;
+            height: 200px;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+            border: 4px solid white;
+            background: #f5f5f5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .photo-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .photo-placeholder {
+            font-size: 60px;
+            color: #FFB6C1;
+        }
+
+        .letter-text {
+            flex: 1;
+            min-width: 250px;
+            max-width: 400px;
+        }
+
+        .letter-text h2 {
+            font-size: 2em;
+            color: #FF1493;
+            margin-bottom: 15px;
+            font-style: italic;
+            line-height: 1.4;
+            text-align: center;
+        }
+
+        .letter-text .highlight {
+            color: #FF69B4;
+            font-weight: bold;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2em;
+            }
+
+            .cat-container {
+                height: 200px;
+            }
+
+            .cat-image {
+                width: 220px;
+            }
+
+            #yesBtn {
+                padding: 20px 40px;
+                font-size: 1.3em;
+            }
+
+            #noBtn {
+                padding: 12px 25px;
+                font-size: 0.9em;
+            }
+
+            .message {
+                font-size: 1.1em;
+            }
+
+            .success-message {
+                font-size: 2em;
+            }
+
+            .envelope-button {
+                padding: 15px 40px;
+                font-size: 1.2em;
+            }
+
+            .love-letter {
+                padding: 25px;
+            }
+
+            .letter-content {
+                flex-direction: column;
+            }
+
+            .photo-box {
+                width: 180px;
+                height: 180px;
+            }
+
+            .letter-text h2 {
+                font-size: 1.5em;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.5em;
+            }
+
+            .cat-container {
+                height: 180px;
+            }
+
+            .cat-image {
+                width: 180px;
+            }
+
+            #yesBtn {
+                padding: 18px 35px;
+                font-size: 1.2em;
+            }
+
+            #noBtn {
+                padding: 10px 20px;
+                font-size: 0.8em;
+            }
+
+            .button-container {
+                gap: 15px;
+            }
+
+            .envelope-button {
+                padding: 12px 30px;
+                font-size: 1em;
+            }
+
+            .photo-box {
+                width: 150px;
+                height: 150px;
+            }
+
+            .letter-text h2 {
+                font-size: 1.3em;
+            }
+        }
+
+        /* Audio Controls */
+        .audio-control {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 10px 20px;
+            border-radius: 30px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            font-size: 1.2em;
+            transition: all 0.3s ease;
+        }
+
+        .audio-control:hover {
+            background: rgba(255, 255, 255, 1);
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+    <!-- Floating Hearts -->
+    <div class="hearts heart1">💖</div>
+    <div class="hearts heart2">💕</div>
+    <div class="hearts heart3">💗</div>
+    <div class="hearts heart4">💝</div>
+
+    <div class="container">
+        <h1>Will You Be My Valentine, Nika Chann? 💖</h1>
+        
+        <div class="cat-container">
+            <img id="happyCats2" class="cat-image hidden" src="gif5.gif" alt="Happy Cats">
+            <img id="happyCats" class="cat-image" src="gif3.gif" alt="Happy Cats">
+            <img id="sadCat" class="cat-image hidden" src="gif1.gif" alt="Sad Cat">
+            <img id="sadCat2" class="cat-image hidden" src="gif2.gif" alt="Sad Cat2">
+            <img id="sadCat3" class="cat-image hidden" src="gif6.gif" alt="Sad Cat2">
+        </div>
+
+        <div class="button-container">
+            <button id="yesBtn">YES! 💕</button>
+            <button id="noBtn">No</button>
+        </div>
+
+        <div class="message" id="message"></div>
+        <div class="success-message" id="successMessage">
+            🎉Love you, Nika-chann. You’re the best💖✨
+        </div>
+
+        <!-- Envelope Section -->
+        <div class="envelope-section" id="envelopeSection">
+            <button class="envelope-button" id="envelopeBtn">Open Me</button>
+        </div>
+
+        <!-- Love Letter Section -->
+        <div class="love-letter" id="loveLetter">
+            <div class="letter-content">
+                <div class="photo-box" id="photoBox">
+                    <img src="Nika2.jpeg" alt="Nika" class="photo-img">
+                </div>
+                <div class="letter-text">
+                    <h2>
+                        She's not Perfect,<br>
+                        She's <span class="highlight">Nika</span>.<br>
+                        And That's even better 💖
+                    </h2>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Audio Element (Anda bisa ganti src dengan URL lagu Anda) -->
+    <audio id="bgMusic" loop>
+        <source src="music.mp3" type="audio/mpeg">
+        <!-- Ganti "your-music-file.mp3" dengan path/URL lagu Anda -->
+    </audio>
+
+    <div class="audio-control" id="audioControl">🔇</div>
+
+    <script>
+        const yesBtn = document.getElementById('yesBtn');
+        const noBtn = document.getElementById('noBtn');
+        const message = document.getElementById('message');
+        const successMessage = document.getElementById('successMessage');
+        const bgMusic = document.getElementById('bgMusic');
+        const audioControl = document.getElementById('audioControl');
+        const happyCats = document.getElementById('happyCats');
+        const sadCat = document.getElementById('sadCat');
+        const envelopeSection = document.getElementById('envelopeSection');
+        const envelopeBtn = document.getElementById('envelopeBtn');
+        const loveLetter = document.getElementById('loveLetter');
+        const photoBox = document.getElementById('photoBox');
+        
+        let noClickCount = 0;
+        let musicPlaying = false;
+        let canClickYes = false;
+
+        // Auto play music on first interaction
+        document.body.addEventListener('click', function() {
+            if (!musicPlaying && bgMusic.src) {
+                bgMusic.play();
+                musicPlaying = true;
+                audioControl.textContent = '🔊';
+            }
+        }, { once: true });
+
+        // Audio control
+        audioControl.addEventListener('click', function(e) {
+            e.stopPropagation();
+            if (musicPlaying) {
+                bgMusic.pause();
+                audioControl.textContent = '🔇';
+                musicPlaying = false;
+            } else {
+                bgMusic.play();
+                audioControl.textContent = '🔊';
+                musicPlaying = true;
+            }
+        });
+
+        // Envelope button click
+        envelopeBtn.addEventListener('click', function() {
+            envelopeSection.style.display = 'none';
+            loveLetter.classList.add('show');
+            
+            // Create more confetti
+            createConfetti();
+        });
+
+        // Photo box click to upload
+        photoBox.addEventListener('click', function() {
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.accept = 'image/*';
+            input.onchange = function(e) {
+                const file = e.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(event) {
+                        photoBox.innerHTML = `<img src="${event.target.result}" alt="Our Photo">`;
+                    };
+                    reader.readAsDataURL(file);
+                }
+            };
+            input.click();
+        });
+
+        yesBtn.addEventListener('click', function() {
+            // Check if NO has been clicked 3 times
+            if (!canClickYes) {
+                // Shake animation for YES button
+                yesBtn.style.animation = 'shake 0.5s';
+                setTimeout(() => {
+                    yesBtn.style.animation = 'pulse 2s ease-in-out infinite';
+                }, 500);
+                
+                // Show message that they need to click NO first
+                message.textContent = "I know youu, tekan NO aja gk usah segan :v";
+                message.classList.add('show');
+                return;
+            }
+            
+            // Change title text
+            document.querySelector('h1').textContent = 'Knew you would say yes 💖';
+            
+            // Hide buttons
+            yesBtn.style.display = 'none';
+            noBtn.style.display = 'none';
+            message.style.display = 'none';
+            
+            // Switch back to happy cats
+            happyCats2.classList.remove('hidden');
+            happyCats.classList.add('hidden');
+            sadCat.classList.add('hidden');
+            sadCat.classList.add('hidden');
+            sadCat2.classList.add('hidden');
+            sadCat3.classList.add('hidden');
+            
+            // Show success message
+            successMessage.classList.add('show');
+            
+            // Show envelope section after a delay
+            setTimeout(() => {
+                envelopeSection.classList.add('show');
+            }, 2000);
+            
+            // Create confetti effect
+            createConfetti();
+        });
+
+        noBtn.addEventListener('click', function() {
+            noClickCount++;
+            
+            // Switch to sad cat
+            happyCats.classList.add('hidden');
+            sadCat.classList.remove('hidden');
+            
+            if (noClickCount === 1) {
+                message.textContent = "Hmmm seriusan di tekan -_-";
+                message.classList.add('show');
+                
+                // Make Yes button bigger
+                yesBtn.style.padding = '30px 80px';
+                yesBtn.style.fontSize = '1.8em';
+                
+                // Make No button smaller
+                noBtn.style.padding = '10px 20px';
+                noBtn.style.fontSize = '0.8em';
+            } else if (noClickCount === 2) {
+                sadCat.classList.add('hidden');
+                sadCat.style.display = "none";
+                sadCat2.classList.remove('hidden');
+                sadCat2.style.display = "block";
+                message.textContent = "Fak kata gue teh - Kit Heart🥺";
+                yesBtn.style.padding = '35px 100px';
+                yesBtn.style.fontSize = '2em';
+                noBtn.style.padding = '8px 15px';
+                noBtn.style.fontSize = '0.7em';
+            } else if (noClickCount >= 3) {
+                // Enable YES button after 3 NO clicks
+                sadCat2.classList.add('hidden');
+                sadCat2.style.display = "none";
+                sadCat3.classList.remove('hidden');
+                sadCat3.style.display = "block";
+                canClickYes = true;
+                message.textContent = "Sekarang mah gk ada tombol No lagi - Only YES WKKWK 💖✨";
+                yesBtn.style.padding = '40px 120px';
+                yesBtn.style.fontSize = '2.2em';
+                noBtn.style.padding = '6px 12px';
+                noBtn.style.fontSize = '0.6em';
+                
+                // Add glow effect to YES button
+                yesBtn.style.boxShadow = '0 0 30px rgba(50, 205, 50, 0.8), 0 4px 15px rgba(0, 0, 0, 0.2)';
+                yesBtn.style.animation = 'pulse 1s ease-in-out infinite';
+                
+                // Move No button randomly
+                moveNoButton();
+            }
+        });
+
+        function moveNoButton() {
+            const container = document.querySelector('.container');
+            const containerRect = container.getBoundingClientRect();
+            const btnRect = noBtn.getBoundingClientRect();
+            
+            const maxX = containerRect.width - btnRect.width - 40;
+            const maxY = containerRect.height - btnRect.height - 40;
+            
+            const randomX = Math.random() * maxX;
+            const randomY = Math.random() * maxY;
+            
+            noBtn.style.position = 'absolute';
+            noBtn.style.left = randomX + 'px';
+            noBtn.style.top = randomY + 'px';
+        }
+
+        function createConfetti() {
+            const colors = ['#FF1493', '#FFB6C1', '#FF69B4', '#FFC0CB', '#FF6B6B'];
+            const symbols = ['💖', '💕', '💗', '💝', '💘', '🌹', '✨', '🎀'];
+            
+            for (let i = 0; i < 50; i++) {
+                setTimeout(() => {
+                    const confetti = document.createElement('div');
+                    confetti.style.position = 'fixed';
+                    confetti.style.left = Math.random() * 100 + '%';
+                    confetti.style.top = '-50px';
+                    confetti.style.fontSize = Math.random() * 30 + 20 + 'px';
+                    confetti.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+                    confetti.style.zIndex = '1000';
+                    confetti.style.pointerEvents = 'none';
+                    
+                    document.body.appendChild(confetti);
+                    
+                    const duration = Math.random() * 3 + 2;
+                    const rotation = Math.random() * 360;
+                    
+                    confetti.animate([
+                        { 
+                            transform: 'translateY(0) rotate(0deg)',
+                            opacity: 1
+                        },
+                        { 
+                            transform: `translateY(${window.innerHeight + 100}px) rotate(${rotation}deg)`,
+                            opacity: 0
+                        }
+                    ], {
+                        duration: duration * 1000,
+                        easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)'
+                    });
+                    
+                    setTimeout(() => {
+                        confetti.remove();
+                    }, duration * 1000);
+                }, i * 100);
+            }
+        }
+    </script>
+</body>
+</html>
